@@ -2,22 +2,17 @@
 
 namespace Struct;
 
-function struct($name, $properties, $strict) {
-    return new struct($name, $properties, $strict);
-}
-
 class struct
 {
     protected $name;
     protected $properties;
-    protected $strict;
+    public static $strict = true;
 
     protected $src;
 
-    public function __construct(string $name, array $properties, bool $strict = true) {
+    public function __construct(string $name, array $properties) {
         $this->name = $name;
         $this->properties = $properties;
-        $this->strict = $strict;
         $this->src = '';
 
         if (!preg_match('/^[A-Z]\w+/', $name)) {
@@ -70,9 +65,10 @@ PROPERTY;
 
     protected function classHeader() {
         $prepend = '';
-        if ($this->strict) {
+        if (self::$strict === true) {
             $prepend = 'declare(strict_types=1);' . PHP_EOL . PHP_EOL;
         }
+
         $this->src .= sprintf('
 %sclass %s implements \ArrayAccess {', $prepend, $this->name) . PHP_EOL . PHP_EOL;
         $this->src .= <<<BOILERPLATE
