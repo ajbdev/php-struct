@@ -18,7 +18,7 @@ Usage
 
     $user['email'] = 'andybaird@gmail.com';
 
-    // Fatal error: Uncaught InvalidArgumentException: Struct does not contain property `email` in /home/vagrant/src/php-struct/src/Struct/Struct.php(31)
+    // Fatal error: Uncaught InvalidArgumentException: Struct does not contain property `email`
 
     $user['age'] = '22';
 
