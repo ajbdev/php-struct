@@ -17,8 +17,6 @@
     "php": ">=5.7"
   },
   "autoload": {
-    "psr-0": {
-      "Struct": "src/"
-    }
+    "files": ["src/Struct/Struct.php"]
   }
 }
