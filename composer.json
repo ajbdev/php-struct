@@ -1,0 +1,24 @@
+{
+  "name": "ajbdev/php-struct",
+  "description": "Structs for PHP",
+  "type": "library",
+  "keywords": [
+    "struct"
+  ],
+  "license": "BSD-2-Clause",
+  "authors": [
+    {
+      "name": "Andy Baird",
+      "email": "andybaird@gmail.com",
+      "role": "lead"
+    }
+  ],
+  "require": {
+    "php": ">=5.7"
+  },
+  "autoload": {
+    "psr-0": {
+      "Struct": "src/"
+    }
+  }
+}
