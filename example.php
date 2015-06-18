@@ -11,11 +11,11 @@ struct('User', [
 ]);
 
 $user = new User();
-
-$user['name'] = 'Andy';
-$user['age'] = '22';
-$user['active'] = true;
-
+$user->fromArray(array(
+    'name'      =>  'George',
+    'age'       =>  36,
+    'active'    =>  false,
+));
 
 var_dump($user['age']);
 exit;
@@ -40,10 +40,7 @@ struct('User', [
 
 $user = new User();
 
-$user['firstName'] = 'Andy';
-$user['lastName'] = 'Baird';
-$user['age'] = '31';
-$user['active'] = false;
+
 
 
 echo $user;
