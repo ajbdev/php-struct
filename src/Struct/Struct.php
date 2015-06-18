@@ -1,7 +1,7 @@
 <?php
 namespace {
-    function struct($name, $properties, $strict = true) {
-        return new Struct\Struct($name, $properties, $strict);
+    function struct($name, $properties, $methods = array()) {
+        return new Struct\Struct($name, $properties, $methods);
     }
 }
 
@@ -16,10 +16,10 @@ namespace Struct {
 
         protected $src;
 
-        public function __construct(string $name, array $properties, array $fns = array()) {
+        public function __construct(string $name, array $properties, $methods = array()) {
             $this->name = $name;
             $this->properties = $properties;
-            $this->methods = $fns;
+            $this->methods = $methods;
             $this->src = '';
 
             if (!preg_match('/^[A-Z]\w+/', $name)) {
