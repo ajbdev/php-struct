@@ -2,6 +2,10 @@
 
 namespace Struct;
 
+function struct($name, $properties, $strict) {
+    return new struct($name, $properties, $strict);
+}
+
 class struct
 {
     protected $name;

@@ -16,7 +16,6 @@ $user = new User();
 
 
 $user['name'] = 'Andy Baird';
-
 $user['age'] = 13;
 $user['active'] = false;
 
