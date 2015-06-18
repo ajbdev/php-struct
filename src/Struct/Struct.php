@@ -39,9 +39,41 @@ namespace Struct {
 
         protected function struct() {
             $this->classHeader();
+            $this->arrayHelpers();
             $this->properties();
             $this->methods();
             $this->classFooter();
+        }
+
+        protected function arrayHelpers() {
+            $this->src .= <<<TOARRAYHELPER
+
+    public function toArray() {
+        \$array = array();
+        foreach (\$this as \$prop => \$val) {
+            \$array[\$prop] = \$val;
+        }
+        return \$array();
+    }
+TOARRAYHELPER;
+
+            $existCheck = 'if (!$this->offsetExists($prop)) {';
+            if (self::$strict) {
+                $existCheck .= 'throw new \InvalidArgumentException(\'Struct does not contain property `\' . $key . \'`\');';
+            } else {
+                $existCheck .= 'continue;';
+            }
+            $existCheck .= '}';
+            $this->src .= <<<FROMARRAYHELPER
+
+    public function fromArray(\$array) {
+        foreach (\$this as \$prop => \$val) {
+            {$existCheck}
+
+            \$this->offsetSet(\$prop,\$val);
+        }
+    }
+FROMARRAYHELPER;
         }
 
         protected function methods() {
