@@ -35,6 +35,7 @@ Turn off strict type checking and allow variables to be coerced into types by si
 Under the hood, structs are simply classes implementing ArrayAccess and Iterable generated at run time. They have generated getter and setters for all fields that allow them to do the type checking.
 
 You can extend structs further by giving them their own methods that can be called.
+
     struct('User', [
         'firstName'         =>  'string',
         'lastName'          =>  'string',
@@ -53,6 +54,7 @@ You can extend structs further by giving them their own methods that can be call
     // Andy Baird
 
 You can even add your own magic methods quite simply
+
     struct('User', [
         'firstName'         =>  'string',
         'lastName'          =>  'string',
