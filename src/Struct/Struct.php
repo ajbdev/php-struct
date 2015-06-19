@@ -28,8 +28,6 @@ namespace Struct {
 
             $this->struct();
 
-            echo $this->src;
-
             eval($this->src);
 
             return new $name();
