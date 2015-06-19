@@ -13,11 +13,11 @@ struct('User', [
 $user = new User();
 $user->fromArray(array(
     'name'      =>  'George',
-    'age'       =>  36,
+    'age'       =>  '36',
     'active'    =>  false,
 ));
 
-var_dump($user['age']);
+var_dump($user->toArray());
 exit;
 struct('User', [
     'firstName'         =>  'string',

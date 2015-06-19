@@ -28,6 +28,8 @@ namespace Struct {
 
             $this->struct();
 
+            echo $this->src;
+
             eval($this->src);
 
             return new $name();
@@ -53,7 +55,7 @@ namespace Struct {
         foreach (\$this as \$prop => \$val) {
             \$array[\$prop] = \$val;
         }
-        return \$array();
+        return \$array;
     }
 TOARRAYHELPER;
 
@@ -67,7 +69,7 @@ TOARRAYHELPER;
             $this->src .= <<<FROMARRAYHELPER
 
     public function fromArray(\$array) {
-        foreach (\$this as \$prop => \$val) {
+        foreach (\$array as \$prop => \$val) {
             {$existCheck}
 
             \$this->offsetSet(\$prop,\$val);
@@ -109,7 +111,7 @@ METHOD;
 
                 $this->property($property, $type);
             }
-            $this->src .= PHP_EOL . '    protected $properties = array(' . implode(',', $propArray) . ');';
+            $this->src .= PHP_EOL . '    private $properties = array(' . implode(',', $propArray) . ');';
         }
 
         protected function property($name, $type) {
@@ -141,7 +143,7 @@ PROPERTY;
             $this->src .= sprintf('
 %sclass %s implements \ArrayAccess, \Iterator {', $prepend, $this->name) . PHP_EOL . PHP_EOL;
             $this->src .= <<<BOILERPLATE
-    protected \$idx;
+    private \$idx;
 
     public function __construct() {
         \$this->idx = 0;
