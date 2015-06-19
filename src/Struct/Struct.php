@@ -102,7 +102,7 @@ METHOD;
                 if (!in_array($type, array('int','string','float','bool')) && !class_exists($type)) {
                     throw new \InvalidArgumentException('Unknown property type for ' . $property . ': ' . $type);
                 }
-                if (!preg_match('/^[A-Za-z]\w+/', $property)) {
+                if (!preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/', $property)) {
                     throw new \InvalidArgumentException('Invalid property name: ' . $property);
                 }
                 $propArray[] = "'{$property}'";
