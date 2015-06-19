@@ -34,6 +34,11 @@ Turn off strict type checking and allow variables to be coerced into types by si
 
 Under the hood, structs are simply classes implementing ArrayAccess and Iterable generated at run time. They have generated getter and setters for all fields that allow them to do the type checking.
 
+Filling a struct from an array:
+
+    $row = $db->fetchArray('select * from user where id=1');
+    $user->fromArray($row);    
+
 You can extend structs further by giving them their own methods.
 
     struct('User', [
