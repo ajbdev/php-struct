@@ -79,7 +79,3 @@ But... why?
 -----------
 Just for my own experimentation. I would love to see structs implemented as a core feature of PHP, as I can see them being very appropriate for a more procedural or functional style of programming.
 
-
-Benchmarks
-----------
-SOON!
