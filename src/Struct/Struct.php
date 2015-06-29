@@ -1,21 +1,51 @@
 <?php
 namespace {
+    /**
+     * Add struct function to global namespace
+     *
+     * @param $name
+     * @param $properties
+     * @param array $methods
+     * @return \Struct\Struct
+     */
     function struct($name, $properties, $methods = array()) {
         return new Struct\Struct($name, $properties, $methods);
     }
 }
 
 namespace Struct {
-
+    /**
+     * Class Struct
+     * @package Struct
+     */
     class Struct
     {
+        /**
+         * @var string
+         */
         protected $name;
+        /**
+         * @var array
+         */
         protected $properties;
+        /**
+         * @var array
+         */
         protected $methods;
+        /**
+         * @var bool
+         */
         public static $strict = true;
-
+        /**
+         * @var string
+         */
         protected $src;
 
+        /**
+         * @param string $name
+         * @param array $properties
+         * @param array $methods
+         */
         public function __construct(string $name, array $properties, $methods = array()) {
             $this->name = $name;
             $this->properties = $properties;
@@ -26,18 +56,34 @@ namespace Struct {
                 throw new \InvalidArgumentException('Invalid struct name: ' . $name);
             }
 
-            $this->struct();
+            $this->compile();
 
             eval($this->src);
 
             return new $name();
         }
 
+        /**
+         * @return string
+         */
         public function getSource() {
             return $this->src;
         }
 
-        protected function struct() {
+        /**
+         * @param $property
+         * @param $type
+         */
+        public function addProperty($property, $type) {
+            $this->properties[$property] = $type;
+        }
+
+        /**
+         * Compile properties and methods into a string that resembles a PHP class.
+         *
+         * @return void
+         */
+        protected function compile() {
             $this->classHeader();
             $this->arrayHelpers();
             $this->properties();
@@ -45,6 +91,11 @@ namespace Struct {
             $this->classFooter();
         }
 
+        /**
+         * Provide array hydrate/export functionality
+         *
+         * @return void
+         */
         protected function arrayHelpers() {
             $this->src .= <<<TOARRAYHELPER
 
@@ -76,6 +127,11 @@ TOARRAYHELPER;
 FROMARRAYHELPER;
         }
 
+        /**
+         * Attach methods to PHP class
+         *
+         * @return void
+         */
         protected function methods() {
             foreach ($this->methods as $name => $fn) {
 
@@ -96,6 +152,11 @@ METHOD;
             }
         }
 
+        /**
+         * Attach properties to PHP class
+         *
+         * @return void
+         */
         protected function properties() {
             $propArray = array();
             foreach ($this->properties as $property => $type) {
@@ -112,6 +173,12 @@ METHOD;
             $this->src .= PHP_EOL . '    private $properties = array(' . implode(',', $propArray) . ');';
         }
 
+        /**
+         * Attach a property to PHP class source
+         *
+         * @param $name
+         * @param $type
+         */
         protected function property($name, $type) {
             $this->src .= <<<PROPERTY
 
@@ -128,10 +195,20 @@ PROPERTY;
 
         }
 
+        /**
+         * End PHP class
+         *
+         * @return void
+         */
         protected function classFooter() {
             $this->src .= PHP_EOL . '}';
         }
 
+        /**
+         * Boilerplate header for PHP class
+         *
+         * @return void
+         */
         protected function classHeader() {
             $prepend = '';
             if (self::$strict === true) {

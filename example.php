@@ -18,8 +18,6 @@ $user->fromArray(array(
     'active'    =>  false,
 ));
 
-var_dump($user['age']);
-exit;
 struct('User', [
     'firstName'         =>  'string',
     'lastName'          =>  'string',
